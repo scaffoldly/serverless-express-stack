@@ -19,11 +19,7 @@ on:
       - react-vite
       - angular
 
-permissions:
-  id-token: write
-  issues: write
-  pull-requests: write
-  deployments: write
+permissions: write-all
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
