@@ -12,6 +12,7 @@
     "start": "serverless offline",
     "build": "serverless package",
     "deploy": "serverless deploy",
+    "destroy": "serverless remove",
     "tsoa": "serverless tsoa",
     "serverless": "serverless",
     "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $NODE_ENV -o src",
