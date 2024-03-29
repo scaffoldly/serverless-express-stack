@@ -2,14 +2,25 @@ name: 'Deploy'
 
 on:
   workflow_dispatch: {}
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+    branches:
+      - development
+      - production
   push:
     branches:
+      - development
       - production
 
-permissions:
-  id-token: write
-  issues: write
-  pull-requests: write
+permissions: write-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -20,13 +31,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - id: branch-names
-        uses: tj-actions/branch-names@v8
-
-      - uses: scaffoldly/deploy-action@main
-        with:
-          role: ${{ vars.DEPLOYMENT_ROLE }}
-
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -34,7 +38,10 @@ jobs:
 
       - run: yarn
 
-      - run: yarn deploy --verbose --stage ${{ steps.branch-names.outputs.current_branch }}
+      - uses: scaffoldly/deploy-action@v1
+        with:
+          role: ${{ vars.DEPLOYMENT_ROLE }}
+          cli: serverless
         env:
           SECRETS: ${{ toJSON(secrets) }}
-          NODE_ENV: ${{ steps.branch-names.outputs.current_branch }}
+          NODE_ENV: production

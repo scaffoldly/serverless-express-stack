@@ -13,6 +13,10 @@ on:
       - reopened
       - synchronize
       - closed
+    branches:
+      - express
+      - react-vite
+      - angular
   push:
     branches:
       - express
