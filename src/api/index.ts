@@ -34,7 +34,7 @@ export class Api extends Controller {
     @Request() httpRequest: EnrichedRequest,
   ): Promise<HealthResponse> {
     return {
-      name: 'foobar 123',
+      name: 'foobar 1234',
       version: packageJson.version,
       now: new Date(),
       hrefs: {
