@@ -163,5 +163,7 @@ custom:
       authenticationModule: src/api/express/auth.ts
       noWriteIfUnchanged: true
     client:
+      override:
+        title: Api
       target: src/lib/api.ts
       client: 'angular'
