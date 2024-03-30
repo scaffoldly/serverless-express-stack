@@ -1,3 +1,7 @@
+### +CSA-OMIT ###
+# This section will be removed by create-scaffoldly-app
+yarn.lock
+### -CSA-OMIT ###
 node_modules
 yarn-error.log
 .angular/
