@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, Subject, filter, first, map } from 'rxjs';
-import { StackService } from '../../lib/api';
+import { ApiService } from '../../lib/api';
 
 @Component({
   selector: 'app-root',
@@ -21,14 +21,14 @@ export class AppComponent implements OnInit {
 
   openApiDocs$: Observable<string>;
 
-  constructor(private stackService: StackService) {
-    this.openApiDocs$ = this.stackService
+  constructor(private apiService: ApiService) {
+    this.openApiDocs$ = this.apiService
       .health()
       .pipe(map((health) => health.hrefs.openApiDocs));
   }
 
   ngOnInit(): void {
-    this.stackService
+    this.apiService
       .getCount()
       .pipe(
         first(),
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
   }
 
   increment(): void {
-    this.stackService
+    this.apiService
       .incrementCount()
       .pipe(map((count) => this.count.next(count.count)))
       .subscribe();
