@@ -42,7 +42,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'yarn'
-          cache-dependency-path: '**/yarn.lock'
+          # this is for sly-deploy only, so it can cache without a lockfile
+          cache-dependency-path: 'package.json'
 
       - run: yarn
 
