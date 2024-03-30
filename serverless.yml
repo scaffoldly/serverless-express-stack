@@ -164,6 +164,6 @@ custom:
       noWriteIfUnchanged: true
     client:
       override:
-        title: Api
+        title: Blah
       target: src/lib/api.ts
       client: 'angular'
