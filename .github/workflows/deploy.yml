@@ -1,7 +1,12 @@
 name: 'Deploy'
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      destroy:
+        type: boolean
+        description: Destroy the stack
+        default: false
   pull_request:
     types:
       - opened
