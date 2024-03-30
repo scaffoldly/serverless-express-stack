@@ -141,6 +141,7 @@ custom:
       version: ${file(serverless.config.cjs):VERSION}
       entryFile: src/app.ts
       noImplicitAdditionalProperties: throw-on-extras
+      bodyCoercion: true
       controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
       outputDirectory: src/lib
       specFileBaseName: 'openapi'
@@ -153,6 +154,7 @@ custom:
     routes:
       entryFile: src/app.ts
       noImplicitAdditionalProperties: throw-on-extras
+      bodyCoercion: true
       controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
       routesDir: src/api/express
       authenticationModule: src/api/express/auth.ts
