@@ -52,7 +52,7 @@
     "serverless-esbuild": "^1.50.1",
     "serverless-offline": "^13.3.3",
     "serverless-offline-resources": "^0.1.22",
-    "serverless-react": "^0.2.8",
+    "serverless-react": "^0.2.10",
     "serverless-tsoa": "^0.1.5",
     "ts-node": "^10.9.1",
     "typescript": "5.x"
