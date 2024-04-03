@@ -27,6 +27,8 @@ provider:
     lambda: true
   environment:
     NODE_OPTIONS: --enable-source-maps
+    # TODO: Alpha Ordering
+    BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
@@ -62,6 +64,16 @@ functions:
 
 resources:
   Resources:
+    # TODO: Alpha Ordering
+    Bucket:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain # TODO: How to switch to delete so PR buckets get cleaned up
+      Properties:
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: 'AES256'
+
     Secret:
       Type: AWS::SecretsManager::Secret
       Properties:
