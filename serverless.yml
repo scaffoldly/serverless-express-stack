@@ -27,7 +27,6 @@ provider:
     lambda: true
   environment:
     NODE_OPTIONS: --enable-source-maps
-    BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
@@ -68,14 +67,6 @@ resources:
       Properties:
         Name: ${self:service}-${self:provider.stage}
         SecretString: ${file(serverless.config.cjs):SECRETS}
-
-    Bucket:
-      Type: AWS::S3::Bucket
-      Properties:
-        ServerSideEncryptionConfiguration: 
-          - BucketKeyEnabled: true
-            ServerSideEncryptionByDefault:
-              SSEAlgorithm: 'AES256'
 
     Topic:
       Type: AWS::SNS::Topic
