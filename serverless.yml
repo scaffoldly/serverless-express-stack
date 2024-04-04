@@ -65,6 +65,7 @@ functions:
 
       - s3:
           bucket: !Ref Bucket
+          existing: true
 
 resources:
   Resources:
