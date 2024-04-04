@@ -45,6 +45,7 @@ functions:
           method: '*'
           path: /{proxy+}
 
+      # TODO Alpha Order
       - stream:
           type: dynamodb
           arn:
@@ -61,6 +62,9 @@ functions:
       - eventBridge:
           name: ${self:service}-${self:provider.stage}-hourly
           schedule: rate(5 minutes)
+
+      - s3:
+          bucket: !Ref Bucket
 
 resources:
   Resources:
