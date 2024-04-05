@@ -28,7 +28,7 @@ provider:
   environment:
     NODE_OPTIONS: --enable-source-maps
     # TODO: Alpha Ordering
-    BUCKET_NAME: { Ref: Bucket }
+    BUCKET_NAME: { Fn::GetAtt: [Bucket, DomainName] }
     QUEUE_URL: { Ref: Queue }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }

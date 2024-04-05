@@ -33,6 +33,7 @@ export class Api extends Controller {
   public async health(
     @Request() httpRequest: EnrichedRequest,
   ): Promise<HealthResponse> {
+    console.log('!!! processenv', process.env);
     return {
       name: packageJson.name,
       version: packageJson.version,

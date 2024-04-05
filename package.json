@@ -45,7 +45,7 @@
     "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "13.x",
-    "serverless-offline-resources": "1.x",
+    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#feda4f3ecd915825c74b4af2ac781746aaa24223",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",
     "typescript": "5.x"
