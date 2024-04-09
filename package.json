@@ -45,13 +45,14 @@
     "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "13.x",
-    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#feda4f3ecd915825c74b4af2ac781746aaa24223",
+    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#bccce1d2760350c2201ee9148ae2d723b786cdbd",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",
     "typescript": "5.x"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.x",
+    "@aws-sdk/client-s3": "^3.550.0",
     "@aws-sdk/client-secrets-manager": "3.x",
     "@aws-sdk/client-sns": "3.x",
     "@aws-sdk/client-sqs": "3.x",
