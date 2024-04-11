@@ -26,9 +26,9 @@ provider:
     apiGateway: true
     lambda: true
   environment:
-    NODE_OPTIONS: --enable-source-maps
+    NODE_OPTIONS: '--enable-source-maps --trace-deprecation'
     # TODO: Alpha Ordering
-    BUCKET: { Fn::GetAtt: [Bucket, DomainName] }
+    BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
@@ -75,9 +75,19 @@ resources:
       DeletionPolicy: Retain # TODO: How to switch to delete so PR buckets get cleaned up
       Properties:
         BucketEncryption:
+          VersioningConfiguration:
+            Status: Enabled
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: 'AES256'
+        CorsConfiguration:
+          CorsRules:
+            - Id: GetObjects
+              MaxAge: 3600
+              AllowedHeaders: ['*']
+              AllowedMethods: [GET]
+              AllowedOrigins: ['*']
+              ExposedHeaders: [Date, ETag]
 
     Secret:
       Type: AWS::SecretsManager::Secret

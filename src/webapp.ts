@@ -1,6 +1,6 @@
 import express from 'express';
 import morganBody from 'morgan-body';
-import { configure } from '@vendia/serverless-express';
+import { configure } from '@codegenie/serverless-express';
 import { RegisterRoutes } from './api/express/routes';
 import errorHandler from './api/express/errors';
 import { corsHandler } from './api/express/cors';
@@ -43,5 +43,6 @@ export const handler = configure({
     AWS_SQS: '/api/event/sqs',
     AWS_SNS: '/api/event/sns',
     AWS_EVENTBRIDGE: '/api/event/eventbridge',
+    AWS_S3: '/api/event/s3',
   },
 });

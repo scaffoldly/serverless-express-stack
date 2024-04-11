@@ -1,6 +1,7 @@
 import {
   DynamoDBStreamEvent,
   EventBridgeEvent,
+  S3Event,
   SNSEvent,
   SQSEvent,
 } from 'aws-lambda';
@@ -87,5 +88,19 @@ export class EventApi extends Controller {
     const event = body as EventBridgeEvent<'Scheduled Event', unknown>;
 
     console.log('Received Scheduled Event: ', event);
+  }
+
+  @Post('/s3')
+  public async s3Event(
+    @Header('Host') host: string,
+    @Body() body: unknown,
+  ): Promise<void> {
+    if (host !== 's3.amazonaws.com') {
+      throw new HttpError(403);
+    }
+
+    const event = body as S3Event;
+
+    console.log('Received S3 Event: ', event.Records);
   }
 }
