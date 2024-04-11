@@ -74,9 +74,9 @@ resources:
       Type: AWS::S3::Bucket
       DeletionPolicy: Retain # TODO: How to switch to delete so PR buckets get cleaned up
       Properties:
+        VersioningConfiguration:
+          Status: Enabled
         BucketEncryption:
-          VersioningConfiguration:
-            Status: Enabled
           ServerSideEncryptionConfiguration:
             - ServerSideEncryptionByDefault:
                 SSEAlgorithm: 'AES256'
