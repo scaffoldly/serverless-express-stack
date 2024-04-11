@@ -19,6 +19,7 @@ provider:
             - 'secretsmanager:*'
             - 'sns:*'
             - 'sqs:*'
+            - 's3:*'
           Resource: '*'
   stage: ${opt:stage, 'development'}
   logRetentionInDays: 1
@@ -26,7 +27,7 @@ provider:
     apiGateway: true
     lambda: true
   environment:
-    NODE_OPTIONS: '--enable-source-maps --trace-deprecation'
+    NODE_OPTIONS: '--enable-source-maps'
     # TODO: Alpha Ordering
     BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
