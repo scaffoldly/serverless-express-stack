@@ -54,6 +54,7 @@
         "git.autofetch": true,
         "task.allowAutomaticTasks": "on",
         "prettier.prettierPath": "${containerWorkspaceFolder}/node_modules/prettier",
+        "terminal.integrated.scrollback": 100000,
         "typescript.tsdk": "${containerWorkspaceFolder}/node_modules/typescript/lib",
         "typescript.tsserver.maxTsServerMemory": 1024,
         "typescript.preferences.importModuleSpecifier": "shortest"

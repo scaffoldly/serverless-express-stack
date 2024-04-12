@@ -11,14 +11,16 @@ import {
   Path,
   Res,
   TsoaResponse,
+  Query,
 } from 'tsoa';
 import {
   GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
-import { v4 as uuid } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { createHash } from 'crypto';
 import { EnrichedRequest } from './services/JwtService';
 import { BaseSchema, BaseTable } from './db/base';
 import { HttpError } from './internal/errors';
@@ -30,7 +32,6 @@ export type UserFileSchema = BaseSchema & {
   contentType: string;
   contentLength: number;
   userId: string;
-  etag?: string;
   version?: string;
   url?: string;
 };
@@ -39,6 +40,49 @@ export class UserFileTable extends BaseTable<UserFileSchema, 'user', 'file'> {
   constructor() {
     super(process.env.TABLE_NAME!, 'user', 'file');
   }
+}
+
+function hexdump(buffer: Buffer): string {
+  const lines = [];
+
+  for (let i = 0; i < buffer.length; i += 16) {
+    const address = i.toString(16).padStart(8, '0'); // address
+    const block = buffer.slice(i, i + 16); // cut buffer into blocks of 16
+    const hexArray = [];
+    const asciiArray = [];
+    let padding = '';
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const value of block) {
+      hexArray.push(value.toString(16).padStart(2, '0'));
+      asciiArray.push(
+        value >= 0x20 && value < 0x7f ? String.fromCharCode(value) : '.',
+      );
+    }
+
+    // if block is less than 16 bytes, calculate remaining space
+    if (hexArray.length < 16) {
+      const space = 16 - hexArray.length;
+      padding = ' '.repeat(space * 2 + space + (hexArray.length < 9 ? 1 : 0)); // calculate extra space if 8 or less
+    }
+
+    const hexString =
+      hexArray.length > 8
+        ? `${hexArray.slice(0, 8).join(' ')}  ${hexArray.slice(8).join(' ')}`
+        : hexArray.join(' ');
+
+    const asciiString = asciiArray.join('');
+    const line = `${address}  ${hexString}  ${padding}|${asciiString}|`;
+
+    lines.push(line);
+
+    if (lines.length > 5) {
+      lines.push('....TRUNCATED....');
+      break;
+    }
+  }
+
+  return lines.join('\n');
 }
 
 @Route('/api/file')
@@ -60,14 +104,15 @@ export class FileApi extends Controller {
     @Request() httpRequest: EnrichedRequest,
     @UploadedFile() file: File,
   ): Promise<UserFileSchema> {
-    const fileUuid = uuid();
+    console.log('!!! uploading file', file);
+    const uuid = uuidv4();
     const userFile: UserFileSchema = {
       hashKey: this.userFileTable.hashKey(httpRequest.user!.uuid!),
-      rangeKey: this.userFileTable.rangeKey(file.originalname),
-      uuid: fileUuid,
+      rangeKey: this.userFileTable.rangeKey(uuid),
+      uuid,
       userId: httpRequest.user!.uuid!,
       bucket: process.env.BUCKET_NAME!,
-      key: `uploads/${fileUuid}`,
+      key: `uploads/${uuid}`,
       contentType: file.mimetype,
       contentLength: file.size,
       filename: file.originalname,
@@ -82,6 +127,11 @@ export class FileApi extends Controller {
       });
     }
 
+    console.log('!!! hexdump', hexdump(file.buffer));
+
+    const shasum = createHash('sha256').update(file.buffer).digest('hex');
+    console.log('!!! shasum', shasum);
+
     const uploaded = await this.s3.send(
       new PutObjectCommand({
         Bucket: userFile.bucket,
@@ -94,7 +144,6 @@ export class FileApi extends Controller {
 
     const updated = await this.userFileTable
       .update(userFile.hashKey, userFile.rangeKey)
-      .set('etag', uploaded.ETag)
       .set('version', uploaded.VersionId)
       .return('ALL_NEW')
       .exec();
@@ -110,12 +159,13 @@ export class FileApi extends Controller {
   @Security('jwt')
   public async download(
     @Request() httpRequest: EnrichedRequest,
-    @Path('uuid') fileUuid: string,
-    @Res() res: TsoaResponse<302, UserFileSchema, { location: string }>,
+    @Path('uuid') uuid: string,
+    @Res() res: TsoaResponse<200 | 302, UserFileSchema, { location?: string }>,
+    @Query() redirect = true,
   ): Promise<UserFileSchema> {
     const result = await this.userFileTable
       .query()
-      .keyCondition((cn) => cn.eq('uuid', fileUuid))
+      .keyCondition((cn) => cn.eq('uuid', uuid))
       .filter((cn) =>
         cn.eq('hashKey', this.userFileTable.hashKey(httpRequest.user!.uuid!)),
       )
@@ -132,14 +182,20 @@ export class FileApi extends Controller {
       new GetObjectCommand({
         Bucket: userFile.bucket,
         Key: userFile.key,
-        ResponseContentDisposition: `attachment; filename="${userFile.filename}"`,
+        // ResponseContentDisposition: `attachment; filename="${userFile.filename}"`,
         ResponseContentType: userFile.contentType,
       }),
       { expiresIn: 3600 },
     );
 
-    return res(302, userFile, {
-      location: userFile.url,
-    });
+    // TODO: Update localhost url to codespaces URL
+
+    if (redirect) {
+      return res(302, userFile, {
+        location: userFile.url,
+      });
+    }
+
+    return res(200, userFile);
   }
 }
