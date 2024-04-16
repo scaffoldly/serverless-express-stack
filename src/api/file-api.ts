@@ -21,6 +21,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { createHash } from 'crypto';
+import { getCurrentInvoke } from '@codegenie/serverless-express';
 import { EnrichedRequest } from './services/JwtService';
 import { BaseSchema, BaseTable } from './db/base';
 import { HttpError } from './internal/errors';
@@ -99,18 +100,19 @@ export class FileApi extends Controller {
   }
 
   @Post('')
-  @Security('jwt')
+  // @Security('jwt')
   public async upload(
     @Request() httpRequest: EnrichedRequest,
     @UploadedFile() file: File,
   ): Promise<UserFileSchema> {
+    console.log('!!!! currentInvoke', getCurrentInvoke());
     console.log('!!! uploading file', file);
     const uuid = uuidv4();
     const userFile: UserFileSchema = {
-      hashKey: this.userFileTable.hashKey(httpRequest.user!.uuid!),
+      hashKey: this.userFileTable.hashKey(httpRequest.user?.uuid || 'foo'),
       rangeKey: this.userFileTable.rangeKey(uuid),
       uuid,
-      userId: httpRequest.user!.uuid!,
+      userId: httpRequest.user?.uuid || 'foo',
       bucket: process.env.BUCKET_NAME!,
       key: `uploads/${uuid}`,
       contentType: file.mimetype,
