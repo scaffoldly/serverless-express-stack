@@ -132,7 +132,6 @@ export function requestEnricher() {
     _res: Response,
     next: NextFunction,
   ): Response | void => {
-    const serviceName = process.env.SERVICE_NAME!;
     const scheme =
       req.headers['x-forwarded-proto'] || req.headers['x-scheme'] || 'http';
     const host =
@@ -140,7 +139,6 @@ export function requestEnricher() {
     const baseUrl = `${scheme}://${host}`;
     const apiUrl = `${baseUrl}/api`;
 
-    (req as unknown as EnrichedRequest).serviceName = serviceName;
     (req as unknown as EnrichedRequest).baseUrl = baseUrl;
     (req as unknown as EnrichedRequest).apiUrl = apiUrl;
     (req as unknown as EnrichedRequest).authUrl = `${apiUrl}/auth`;

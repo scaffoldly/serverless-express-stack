@@ -21,7 +21,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import mime from 'mime-types';
-import { getCurrentInvoke } from '@codegenie/serverless-express';
 import { EnrichedRequest } from './services/JwtService';
 import { BaseSchema, BaseTable } from './db/base';
 import { HttpError } from './internal/errors';
@@ -62,10 +61,6 @@ export class FileApi extends Controller {
     @Request() httpRequest: EnrichedRequest,
     @UploadedFile() file: File,
   ): Promise<UserFileSchema> {
-    const invoke = getCurrentInvoke();
-    console.log('!!! event', JSON.stringify(invoke.event, null, 2));
-    console.log('!!! context', JSON.stringify(invoke.context, null, 2));
-
     const uuid = uuidv4();
     const userFile: UserFileSchema = {
       hashKey: this.userFileTable.hashKey(httpRequest.user?.uuid || 'foo'),
