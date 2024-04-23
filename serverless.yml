@@ -38,9 +38,9 @@ functions:
     handler: src/webapp.handler
     timeout: 29
     events:
-      - eventBridge:
-          name: ${self:service}-${self:provider.stage}-hourly
-          schedule: rate(60 minutes)
+      # - eventBridge:
+      #     name: ${self:service}-${self:provider.stage}-hourly
+      #     schedule: rate(60 minutes)
       - httpApi:
           method: '*'
           path: /{proxy+}
