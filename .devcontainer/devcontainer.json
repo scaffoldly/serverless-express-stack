@@ -24,18 +24,15 @@
     "NODE_ENV": "development",
     "NODE_OPTIONS": "--enable-source-maps",
     "LOCALSTACK_VOLUME_DIR": "${containerWorkspaceFolder}/.cache",
-    "LAMBDA_DOCKER_NETWORK": "bridge"
+    "LAMBDA_DOCKER_NETWORK": "bridge",
+    "LOCALSTACK_ENDPOINT": "https://${localEnv:CODESPACE_NAME}-4566.${localEnv:GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
   },
-  "remoteEnv": {},
   "waitFor": "onCreateCommand",
   "onCreateCommand": "yarn install",
-  "updateContentCommand": "start supervisor",
+  "updateContentCommand": "restart supervisor",
   "postCreateCommand": "",
   "postAttachCommand": {
     "server": "yarn start"
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "customizations": {
     "vscode": {

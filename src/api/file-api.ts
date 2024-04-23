@@ -20,8 +20,7 @@ import {
 } from '@aws-sdk/client-s3';
 import { v4 as uuidv4 } from 'uuid';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-import { createHash } from 'crypto';
-import { getCurrentInvoke } from '@codegenie/serverless-express';
+import mime from 'mime-types';
 import { EnrichedRequest } from './services/JwtService';
 import { BaseSchema, BaseTable } from './db/base';
 import { HttpError } from './internal/errors';
@@ -43,49 +42,6 @@ export class UserFileTable extends BaseTable<UserFileSchema, 'user', 'file'> {
   }
 }
 
-function hexdump(buffer: Buffer): string {
-  const lines = [];
-
-  for (let i = 0; i < buffer.length; i += 16) {
-    const address = i.toString(16).padStart(8, '0'); // address
-    const block = buffer.slice(i, i + 16); // cut buffer into blocks of 16
-    const hexArray = [];
-    const asciiArray = [];
-    let padding = '';
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const value of block) {
-      hexArray.push(value.toString(16).padStart(2, '0'));
-      asciiArray.push(
-        value >= 0x20 && value < 0x7f ? String.fromCharCode(value) : '.',
-      );
-    }
-
-    // if block is less than 16 bytes, calculate remaining space
-    if (hexArray.length < 16) {
-      const space = 16 - hexArray.length;
-      padding = ' '.repeat(space * 2 + space + (hexArray.length < 9 ? 1 : 0)); // calculate extra space if 8 or less
-    }
-
-    const hexString =
-      hexArray.length > 8
-        ? `${hexArray.slice(0, 8).join(' ')}  ${hexArray.slice(8).join(' ')}`
-        : hexArray.join(' ');
-
-    const asciiString = asciiArray.join('');
-    const line = `${address}  ${hexString}  ${padding}|${asciiString}|`;
-
-    lines.push(line);
-
-    if (lines.length > 5) {
-      lines.push('....TRUNCATED....');
-      break;
-    }
-  }
-
-  return lines.join('\n');
-}
-
 @Route('/api/file')
 @Tags('File Api')
 export class FileApi extends Controller {
@@ -100,13 +56,11 @@ export class FileApi extends Controller {
   }
 
   @Post('')
-  // @Security('jwt')
+  @Security('jwt')
   public async upload(
     @Request() httpRequest: EnrichedRequest,
     @UploadedFile() file: File,
   ): Promise<UserFileSchema> {
-    console.log('!!!! currentInvoke', getCurrentInvoke());
-    console.log('!!! uploading file', file);
     const uuid = uuidv4();
     const userFile: UserFileSchema = {
       hashKey: this.userFileTable.hashKey(httpRequest.user?.uuid || 'foo'),
@@ -129,11 +83,6 @@ export class FileApi extends Controller {
       });
     }
 
-    console.log('!!! hexdump', hexdump(file.buffer));
-
-    const shasum = createHash('sha256').update(file.buffer).digest('hex');
-    console.log('!!! shasum', shasum);
-
     const uploaded = await this.s3.send(
       new PutObjectCommand({
         Bucket: userFile.bucket,
@@ -150,11 +99,7 @@ export class FileApi extends Controller {
       .return('ALL_NEW')
       .exec();
 
-    if (!updated.Attributes) {
-      throw new HttpError(500, { message: 'Unable to update tracking record' });
-    }
-
-    return updated.Attributes;
+    return updated.Attributes!;
   }
 
   @Get('{uuid}')
@@ -184,18 +129,14 @@ export class FileApi extends Controller {
       new GetObjectCommand({
         Bucket: userFile.bucket,
         Key: userFile.key,
-        // ResponseContentDisposition: `attachment; filename="${userFile.filename}"`,
+        ResponseContentDisposition: `attachment; filename="${userFile.uuid}.${mime.extension(userFile.contentType)}"`,
         ResponseContentType: userFile.contentType,
       }),
       { expiresIn: 3600 },
     );
 
-    // TODO: Update localhost url to codespaces URL
-
     if (redirect) {
-      return res(302, userFile, {
-        location: userFile.url,
-      });
+      return res(302, userFile, { location: userFile.url });
     }
 
     return res(200, userFile);
