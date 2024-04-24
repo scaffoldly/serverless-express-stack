@@ -33,7 +33,28 @@
   "postAttachCommand": {
     "server": "yarn start"
   },
-  "features": {
-    "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {}
+  "customizations": {
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "always"
+        },
+        "[html]": {
+          "editor.defaultFormatter": "vscode.html-language-features"
+        },
+        "editor.formatOnSave": true,
+        "eslint.lintTask.enable": true,
+        "eslint.validate": ["javascript", "typescript"],
+        "git.autofetch": true,
+        "task.allowAutomaticTasks": "on",
+        "prettier.prettierPath": "${containerWorkspaceFolder}/node_modules/prettier",
+        "terminal.integrated.scrollback": 100000,
+        "typescript.tsdk": "${containerWorkspaceFolder}/node_modules/typescript/lib",
+        "typescript.tsserver.maxTsServerMemory": 1024,
+        "typescript.preferences.importModuleSpecifier": "shortest"
+      }
+    }
   }
 }
