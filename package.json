@@ -54,7 +54,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.x",
-    "@aws-sdk/client-s3": "^3.550.0",
+    "@aws-sdk/client-s3": "3.x",
     "@aws-sdk/client-secrets-manager": "3.x",
     "@aws-sdk/client-sns": "3.x",
     "@aws-sdk/client-sqs": "3.x",
