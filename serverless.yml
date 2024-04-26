@@ -1,4 +1,4 @@
-service: ${file(serverless.config.cjs):SERVICE_NAME}
+service: ${file(serverless.config.cjs):packageName}
 
 plugins:
   - serverless-dotenv-plugin
@@ -19,6 +19,7 @@ provider:
             - 'secretsmanager:*'
             - 'sns:*'
             - 'sqs:*'
+            - 's3:*'
           Resource: '*'
   stage: ${opt:stage, 'development'}
   logRetentionInDays: 1
@@ -26,57 +27,68 @@ provider:
     apiGateway: true
     lambda: true
   environment:
-    NODE_OPTIONS: --enable-source-maps
+    BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
+    SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
-    SECRET_ID: { Ref: Secret }
-    SERVICE_NAME: ${self:service}
-    STAGE: ${self:provider.stage}
 
 functions:
   webapp:
     handler: src/webapp.handler
     timeout: 29
     events:
+      # - eventBridge:
+      #     name: ${self:service}-${self:provider.stage}-hourly
+      #     schedule: rate(60 minutes)
       - httpApi:
           method: '*'
           path: /{proxy+}
-
+      - sns:
+          arn: !Ref Topic
+          topicName: ${self:service}-${self:provider.stage}
+      - s3:
+          bucket: !Ref Bucket
+          existing: true
+      - sqs:
+          arn:
+            Fn::GetAtt: [Queue, Arn]
       - stream:
           type: dynamodb
           arn:
             Fn::GetAtt: [Table, StreamArn]
 
-      - sqs:
-          arn:
-            Fn::GetAtt: [Queue, Arn]
-
-      - sns:
-          arn: !Ref Topic
-          topicName: ${self:service}-${self:provider.stage}
-
-      - eventBridge:
-          name: ${self:service}-${self:provider.stage}-hourly
-          schedule: rate(5 minutes)
-
 resources:
   Resources:
-    Secret:
-      Type: AWS::SecretsManager::Secret
+    Bucket:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
       Properties:
-        Name: ${self:service}-${self:provider.stage}
-        SecretString: ${file(serverless.config.cjs):SECRETS}
-
-    Topic:
-      Type: AWS::SNS::Topic
-      Properties:
-        TopicName: ${self:service}-${self:provider.stage}
+        VersioningConfiguration:
+          Status: Enabled
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: 'AES256'
+        CorsConfiguration:
+          CorsRules:
+            - Id: GetObjects
+              MaxAge: 3600
+              AllowedHeaders: ['*']
+              AllowedMethods: [GET]
+              AllowedOrigins: ['*']
+              ExposedHeaders: [Date, ETag, Content-Disposition]
 
     Queue:
       Type: AWS::SQS::Queue
       Properties:
         QueueName: ${self:service}-${self:provider.stage}
+
+    Secret:
+      Type: AWS::SecretsManager::Secret
+      Properties:
+        Name: ${self:service}-${self:provider.stage}
+        SecretString: ${file(serverless.config.cjs):SECRETS}
 
     Table:
       Type: AWS::DynamoDB::Table
@@ -120,6 +132,11 @@ resources:
           SSEEnabled: true
         BillingMode: PAY_PER_REQUEST
 
+    Topic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: ${self:service}-${self:provider.stage}
+
 custom:
   serverless-offline:
     host: 0.0.0.0
@@ -138,7 +155,7 @@ custom:
     spec:
       basePath: '/'
       name: ${self:service}
-      version: ${file(serverless.config.cjs):VERSION}
+      version: ${file(serverless.config.cjs):packageVersion}
       entryFile: src/app.ts
       noImplicitAdditionalProperties: throw-on-extras
       bodyCoercion: true

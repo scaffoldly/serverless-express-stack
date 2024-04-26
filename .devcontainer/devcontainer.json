@@ -1,7 +1,9 @@
 {
   "name": "Stack",
   "image": "ghcr.io/scaffoldly/aws-localstack:3.1.0-node20",
-  "privileged": true,
+  "features": {
+    "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {}
+  },
   "remoteUser": "root",
   "hostRequirements": {
     "cpus": 4
@@ -21,43 +23,13 @@
     "onAutoForward": "ignore"
   },
   "containerEnv": {
-    "NODE_ENV": "development",
-    "NODE_OPTIONS": "--enable-source-maps",
-    "LOCALSTACK_VOLUME_DIR": "${containerWorkspaceFolder}/.cache",
-    "LAMBDA_DOCKER_NETWORK": "bridge"
+    "NODE_ENV": "development"
   },
-  "remoteEnv": {},
   "waitFor": "onCreateCommand",
   "onCreateCommand": "yarn install",
-  "updateContentCommand": "start supervisor",
+  "updateContentCommand": "",
   "postCreateCommand": "",
   "postAttachCommand": {
     "server": "yarn start"
-  },
-  "features": {
-    "ghcr.io/devcontainers/features/github-cli:1": {}
-  },
-  "customizations": {
-    "vscode": {
-      "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"],
-      "settings": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": "always"
-        },
-        "[html]": {
-          "editor.defaultFormatter": "vscode.html-language-features"
-        },
-        "editor.formatOnSave": true,
-        "eslint.lintTask.enable": true,
-        "eslint.validate": ["javascript", "typescript"],
-        "git.autofetch": true,
-        "task.allowAutomaticTasks": "on",
-        "prettier.prettierPath": "${containerWorkspaceFolder}/node_modules/prettier",
-        "typescript.tsdk": "${containerWorkspaceFolder}/node_modules/typescript/lib",
-        "typescript.tsserver.maxTsServerMemory": 1024,
-        "typescript.preferences.importModuleSpecifier": "shortest"
-      }
-    }
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const dotenv = require('dotenv');
 const packageJson = require('./package.json');
 
@@ -24,5 +25,5 @@ module.exports.SECRETS = JSON.stringify(
   }, {}),
 );
 
-module.exports.SERVICE_NAME = packageJson.name;
-module.exports.VERSION = packageJson.version;
+module.exports.packageName = packageJson.name;
+module.exports.packageVersion = packageJson.version;

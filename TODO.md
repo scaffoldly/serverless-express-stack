@@ -13,6 +13,8 @@ ASSISTED BACKEND:
 
 OTHER:
 
+- [sor] handle localstack restarts while app is running
+- devcontainer feature that does supervisor stuff
 - embed saml.to
 - add openapi-types to serverless-tsoa
 - cleanup package.json and bump versions
@@ -43,7 +45,7 @@ OTHER:
 
 CONTRIBUTIONS:
 
-- [tj-actions/branch-names@v8]: output normalized names in snakeCase, pascalCase, etc
+- [ddb-table]: return ALL_NEW on put operation?
 
 BUGS:
 

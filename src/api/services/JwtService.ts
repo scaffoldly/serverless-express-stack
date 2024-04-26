@@ -12,7 +12,6 @@ export type UserIdentity = UserIdentitySchema & {
 };
 
 export type EnrichedRequest = Request & {
-  serviceName: string;
   baseUrl: string;
   authUrl: string;
   apiUrl: string;
