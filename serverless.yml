@@ -32,7 +32,7 @@ provider:
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
-    SAY_HELLO: ${env:SAY_HELLO}
+    HELLO: ${env:HELLO, 'Hello from Development!'}
 
 functions:
   webapp:
