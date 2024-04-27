@@ -1,10 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const dotenv = require('dotenv');
 const packageJson = require('./package.json');
 
 const { SECRETS = '{}' } = process.env;
-
-dotenv.config();
 
 const secrets = {
   // Gather process.env so Codespaces secrets are included

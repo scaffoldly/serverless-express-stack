@@ -8,8 +8,7 @@ import {
   Request,
   Path,
 } from 'tsoa';
-import { env as processEnv } from 'process';
-import { env as envTs } from '../env';
+import { env } from 'process';
 import packageJson from '../../package.json';
 import { UserIdentitySchema, UserIdentityTable } from './db/user-identity';
 import { EnrichedRequest, JwtService } from './services/JwtService';
@@ -44,8 +43,7 @@ export class Api extends Controller {
         openApi: httpRequest.openApiUrl,
         openApiDocs: httpRequest.openApiDocsUrl,
       },
-      envTs,
-      processEnv,
+      env,
     };
   }
 

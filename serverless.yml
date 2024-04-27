@@ -32,8 +32,10 @@ provider:
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
-    FOO2: from-serverless-yml
-    FOO3: from-serverless-yml
+    FOO0: ${env:FOO0, 'foo0-from-serverless'}
+    FOO1: ${env:FOO1, 'foo1-from-serverless'}
+    FOO2: ${env:FOO2, 'foo2-from-serverless'}
+    FOO3: ${env:FOO3, 'foo3-from-serverless'}
 
 functions:
   webapp:

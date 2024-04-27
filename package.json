@@ -67,7 +67,6 @@
     "cookies": "0.x",
     "cors": "2.x",
     "ddb-table": "2.x",
-    "dotenv": "16.x",
     "express": "4.x",
     "jose": "2.x",
     "mime-types": "2.x",
