@@ -27,6 +27,7 @@ provider:
     apiGateway: true
     lambda: true
   environment:
+    KEY_ARN: { Ref: Key }
     BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
@@ -78,6 +79,11 @@ resources:
               AllowedMethods: [GET]
               AllowedOrigins: ['*']
               ExposedHeaders: [Date, ETag, Content-Disposition]
+
+    Key:
+      Type: AWS::KMS::Key
+      Properties:
+        KeySpec: SYMMETRIC_DEFAULT
 
     Queue:
       Type: AWS::SQS::Queue
