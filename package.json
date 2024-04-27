@@ -8,11 +8,11 @@
   },
   "scripts": {
     "prepare": "husky && yarn dotenv && yarn tsoa",
-    "start": "serverless offline",
+    "start": "yarn dotenv && serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
     "serverless": "serverless",
-    "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $NODE_ENV -o src",
+    "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $STAGE -o src --serverless",
     "lint": "eslint '*/**/*.{js,cjs,ts,tsx}' --quiet --fix",
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
@@ -46,7 +46,7 @@
     "serverless": "3.x",
     "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
-    "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#5ce03b50d9048b90e864a118b6a2328e67e60ce5",
+    "serverless-offline": "git+https://github.com/dherault/serverless-offline.git#2d9dbc2ff8fb65b71925f7d4696acb2c1d208dae",
     "serverless-offline-resources": "1.x",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",

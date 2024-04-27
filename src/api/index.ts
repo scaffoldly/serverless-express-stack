@@ -42,6 +42,7 @@ export class Api extends Controller {
         openApi: httpRequest.openApiUrl,
         openApiDocs: httpRequest.openApiDocsUrl,
       },
+      env: process.env,
     };
   }
 
