@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json');
 
 const { SECRETS = '{}' } = process.env;
@@ -10,17 +10,11 @@ const secrets = {
   ...JSON.parse(SECRETS),
 };
 
-// Copy anything that is in INCLUDE_SECRETS into module.exports.SECRETS
-const includeSecrets = (process.env.INCLUDE_SECRETS || '').split(',');
-
-module.exports.SECRETS = JSON.stringify(
+module.exports.secrets = JSON.stringify(
   Object.entries(secrets).reduce((acc, [key, value]) => {
-    if (includeSecrets.includes(key)) {
+    if ((packageJson['inject-secrets'] || []).includes(key)) {
       acc[key] = value;
     }
     return acc;
   }, {}),
 );
-
-module.exports.packageName = packageJson.name;
-module.exports.packageVersion = packageJson.version;

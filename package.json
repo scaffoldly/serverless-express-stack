@@ -87,5 +87,9 @@
       "eslint --fix",
       "git add"
     ]
-  }
+  },
+  "inject-secrets": [
+    "TEST_SECRET_1",
+    "TEST_SECRET_2"
+  ]
 }
