@@ -7,12 +7,11 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "husky && yarn dotenv && yarn tsoa",
+    "prepare": "husky && yarn tsoa",
     "start": "serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
     "serverless": "serverless",
-    "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $NODE_ENV -o src",
     "lint": "eslint '*/**/*.{js,cjs,ts,tsx}' --quiet --fix",
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
@@ -27,7 +26,6 @@
     "@types/uuid": "9.x",
     "@typescript-eslint/eslint-plugin": "6.x",
     "@typescript-eslint/parser": "6.x",
-    "dotenv-out": "1.x",
     "esbuild": "0.x",
     "eslint": "8.x",
     "eslint-config-airbnb": "19.x",
@@ -44,9 +42,8 @@
     "prettier": "3.x",
     "pretty-quick": "4.x",
     "serverless": "3.x",
-    "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
-    "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#5ce03b50d9048b90e864a118b6a2328e67e60ce5",
+    "serverless-offline": "git+https://github.com/dherault/serverless-offline.git#2d9dbc2ff8fb65b71925f7d4696acb2c1d208dae",
     "serverless-offline-resources": "1.x",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",
@@ -70,7 +67,6 @@
     "cookies": "0.x",
     "cors": "2.x",
     "ddb-table": "2.x",
-    "dotenv": "16.x",
     "express": "4.x",
     "jose": "2.x",
     "mime-types": "2.x",
@@ -91,5 +87,9 @@
       "eslint --fix",
       "git add"
     ]
-  }
+  },
+  "inject-secrets": [
+    "TEST_SECRET_1",
+    "TEST_SECRET_2"
+  ]
 }

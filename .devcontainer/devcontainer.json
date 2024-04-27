@@ -22,9 +22,6 @@
   "otherPortsAttributes": {
     "onAutoForward": "ignore"
   },
-  "containerEnv": {
-    "NODE_ENV": "development"
-  },
   "waitFor": "onCreateCommand",
   "onCreateCommand": "yarn install",
   "updateContentCommand": "",

@@ -1,7 +1,7 @@
-service: ${file(serverless.config.cjs):packageName}
+service: ${file(package.json):name}
+useDotenv: true
 
 plugins:
-  - serverless-dotenv-plugin
   - serverless-tsoa
   - serverless-esbuild
   - serverless-offline-resources
@@ -32,15 +32,13 @@ provider:
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
+    HELLO: ${env:HELLO, 'Hello from Development!'}
 
 functions:
   webapp:
     handler: src/webapp.handler
     timeout: 29
     events:
-      # - eventBridge:
-      #     name: ${self:service}-${self:provider.stage}-hourly
-      #     schedule: rate(60 minutes)
       - httpApi:
           method: '*'
           path: /{proxy+}
@@ -88,7 +86,7 @@ resources:
       Type: AWS::SecretsManager::Secret
       Properties:
         Name: ${self:service}-${self:provider.stage}
-        SecretString: ${file(serverless.config.cjs):SECRETS}
+        SecretString: ${file(inject-secrets.js):secrets}
 
     Table:
       Type: AWS::DynamoDB::Table
@@ -155,7 +153,7 @@ custom:
     spec:
       basePath: '/'
       name: ${self:service}
-      version: ${file(serverless.config.cjs):packageVersion}
+      version: ${file(package.json):version}
       entryFile: src/app.ts
       noImplicitAdditionalProperties: throw-on-extras
       bodyCoercion: true
