@@ -44,7 +44,6 @@
     "prettier": "3.x",
     "pretty-quick": "4.x",
     "serverless": "3.x",
-    "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "git+https://github.com/dherault/serverless-offline.git#2d9dbc2ff8fb65b71925f7d4696acb2c1d208dae",
     "serverless-offline-resources": "1.x",

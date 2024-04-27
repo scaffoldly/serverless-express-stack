@@ -15,7 +15,8 @@ export type HealthResponse = {
     openApi: string;
     openApiDocs: string;
   };
-  env: { [key: string]: string | undefined };
+  envTs: { [key: string]: string | undefined };
+  processEnv: { [key: string]: string | undefined };
 };
 
 export type LoginResponse = {

@@ -1,7 +1,7 @@
 service: ${file(serverless.config.cjs):packageName}
+useDotenv: true
 
 plugins:
-  - serverless-dotenv-plugin
   - serverless-tsoa
   - serverless-esbuild
   - serverless-offline-resources
