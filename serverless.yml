@@ -26,8 +26,20 @@ provider:
   tracing:
     apiGateway: true
     lambda: true
+  s3:
+    Bucket:
+      versioningConfiguration:
+        Status: Enabled
+      corsConfiguration:
+        CorsRules:
+          - Id: GetObjects
+            MaxAge: 3600
+            AllowedHeaders: ['*']
+            AllowedMethods: [GET]
+            AllowedOrigins: ['*']
+            ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
-    BUCKET_NAME: { Ref: Bucket }
+    # BUCKET_NAME: { Ref: Bucket }
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
