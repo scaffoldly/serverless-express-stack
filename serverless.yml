@@ -33,6 +33,7 @@ provider:
     TABLE_NAME: { Ref: Table }
     TOPIC_ARN: { Ref: Topic }
     FOO2: from-serverless-yml
+    FOO3: from-serverless-yml
 
 functions:
   webapp:

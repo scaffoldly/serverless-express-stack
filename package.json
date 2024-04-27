@@ -7,12 +7,11 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "husky && yarn dotenv && yarn tsoa",
-    "start": "yarn dotenv && serverless offline",
+    "prepare": "husky && yarn tsoa",
+    "start": "serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
     "serverless": "serverless",
-    "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $STAGE -o src --serverless",
     "lint": "eslint '*/**/*.{js,cjs,ts,tsx}' --quiet --fix",
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
@@ -27,7 +26,6 @@
     "@types/uuid": "9.x",
     "@typescript-eslint/eslint-plugin": "6.x",
     "@typescript-eslint/parser": "6.x",
-    "dotenv-out": "1.x",
     "esbuild": "0.x",
     "eslint": "8.x",
     "eslint-config-airbnb": "19.x",
