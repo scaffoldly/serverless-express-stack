@@ -57,9 +57,8 @@ functions:
       - sns:
           arn: !Ref Topic
           topicName: ${self:service}-${self:provider.stage}
-      # - s3:
-      #     bucket: !Ref Bucket
-      #     existing: true
+      - s3:
+          bucket: Bucket
       - sqs:
           arn:
             Fn::GetAtt: [Queue, Arn]
@@ -70,25 +69,6 @@ functions:
 
 resources:
   Resources:
-    Bucket:
-      Type: AWS::S3::Bucket
-      DeletionPolicy: Retain
-      Properties:
-        VersioningConfiguration:
-          Status: Enabled
-        BucketEncryption:
-          ServerSideEncryptionConfiguration:
-            - ServerSideEncryptionByDefault:
-                SSEAlgorithm: 'AES256'
-        CorsConfiguration:
-          CorsRules:
-            - Id: GetObjects
-              MaxAge: 3600
-              AllowedHeaders: ['*']
-              AllowedMethods: [GET]
-              AllowedOrigins: ['*']
-              ExposedHeaders: [Date, ETag, Content-Disposition]
-
     Queue:
       Type: AWS::SQS::Queue
       Properties:
