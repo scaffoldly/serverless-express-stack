@@ -27,7 +27,7 @@ provider:
     apiGateway: true
     lambda: true
   s3:
-    Bucket:
+    bucket:
       versioningConfiguration:
         Status: Enabled
       corsConfiguration:
@@ -39,7 +39,7 @@ provider:
             AllowedOrigins: ['*']
             ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
-    BUCKET_NAME: { Ref: Bucket }
+    BUCKET_NAME: { Ref: bucket }
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
