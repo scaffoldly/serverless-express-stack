@@ -27,7 +27,7 @@ provider:
     apiGateway: true
     lambda: true
   s3:
-    Bucket:
+    bucket:
       name: ${self:service}-${self:provider.stage}-${aws:accountId}
       versioningConfiguration:
         Status: Enabled
