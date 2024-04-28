@@ -39,7 +39,7 @@ provider:
   #           AllowedOrigins: ['*']
   #           ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
-    BUCKET_NAME: { Ref: bucket }
+    BUCKET_NAME: ${self:service}-${self:provider.stage}-${aws:accountId}
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
@@ -58,6 +58,7 @@ functions:
           arn: !Ref Topic
           topicName: ${self:service}-${self:provider.stage}
       - s3:
+          bucket: ${self:service}-${self:provider.stage}-${aws:accountId}
           event: s3:ObjectCreated:*
       - sqs:
           arn:
