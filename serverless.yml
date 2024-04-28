@@ -27,7 +27,7 @@ provider:
     apiGateway: true
     lambda: true
   s3:
-    bucket:
+    Bucket:
       name: ${self:service}-${self:provider.stage}-${aws:accountId}
       versioningConfiguration:
         Status: Enabled
@@ -58,9 +58,9 @@ functions:
       - sns:
           arn: !Ref Topic
           topicName: ${self:service}-${self:provider.stage}
-      # - s3:
-      #     bucket: ${self:service}-${self:provider.stage}-${aws:accountId}
-      #     event: s3:ObjectCreated:*
+      - s3:
+          bucket: Bucket
+          event: s3:ObjectCreated:*
       - sqs:
           arn:
             Fn::GetAtt: [Queue, Arn]
