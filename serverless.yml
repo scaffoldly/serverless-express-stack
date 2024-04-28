@@ -40,7 +40,7 @@ provider:
             AllowedOrigins: ['*']
             ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
-    BUCKET_NAME: ${self:service}-${self:provider.stage}-${aws:accountId}
+    BUCKET_NAME: ${self:provider.s3.Bucket.name}
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
