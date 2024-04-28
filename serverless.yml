@@ -26,18 +26,19 @@ provider:
   tracing:
     apiGateway: true
     lambda: true
-  # s3:
-  #   bucket:
-  #     versioningConfiguration:
-  #       Status: Enabled
-  #     corsConfiguration:
-  #       CorsRules:
-  #         - Id: GetObjects
-  #           MaxAge: 3600
-  #           AllowedHeaders: ['*']
-  #           AllowedMethods: [GET]
-  #           AllowedOrigins: ['*']
-  #           ExposedHeaders: [Date, ETag, Content-Disposition]
+  s3:
+    Bucket:
+      name: ${self:service}-${self:provider.stage}-${aws:accountId}
+      versioningConfiguration:
+        Status: Enabled
+      corsConfiguration:
+        CorsRules:
+          - Id: GetObjects
+            MaxAge: 3600
+            AllowedHeaders: ['*']
+            AllowedMethods: [GET]
+            AllowedOrigins: ['*']
+            ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
     BUCKET_NAME: ${self:service}-${self:provider.stage}-${aws:accountId}
     QUEUE_URL: { Ref: Queue }
