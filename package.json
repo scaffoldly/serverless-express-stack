@@ -44,7 +44,7 @@
     "serverless": "3.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "13.x",
-    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#dc08a2bbda1330e80dc7c731aef8ff99a08b3fc4",
+    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#e2728bfb1d705a9d46d8cc0c4dc62869620ec259",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",
     "typescript": "5.x"
