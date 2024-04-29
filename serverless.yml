@@ -28,7 +28,7 @@ provider:
     lambda: true
   s3:
     Bucket:
-      name: ${self:service}-${self:provider.stage}-${self:provider.region}
+      name: ${self:service}-${self:provider.stage}-${aws:region}
       versioningConfiguration:
         Status: Enabled
       corsConfiguration:
