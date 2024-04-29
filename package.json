@@ -43,8 +43,8 @@
     "pretty-quick": "4.x",
     "serverless": "3.x",
     "serverless-esbuild": "1.x",
-    "serverless-offline": "git+https://github.com/dherault/serverless-offline.git#2d9dbc2ff8fb65b71925f7d4696acb2c1d208dae",
-    "serverless-offline-resources": "1.x",
+    "serverless-offline": "13.x",
+    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#dc08a2bbda1330e80dc7c731aef8ff99a08b3fc4",
     "serverless-tsoa": "1.x",
     "ts-node": "10.x",
     "typescript": "5.x"
