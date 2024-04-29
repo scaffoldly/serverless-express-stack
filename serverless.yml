@@ -28,7 +28,7 @@ provider:
     lambda: true
   s3:
     Bucket:
-      name: ${self:service}-${self:provider.stage}-${sls:instanceId}
+      # name: ${self:service}-${self:provider.stage}-${sls:instanceId}
       versioningConfiguration:
         Status: Enabled
       corsConfiguration:
@@ -40,7 +40,7 @@ provider:
             AllowedOrigins: ['*']
             ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
-    BUCKET_NAME: ${self:provider.s3.Bucket.name}
+    # BUCKET_NAME: ${self:provider.s3.Bucket.name}
     QUEUE_URL: { Ref: Queue }
     SECRET_ID: { Ref: Secret }
     TABLE_NAME: { Ref: Table }
