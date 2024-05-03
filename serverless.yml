@@ -3,13 +3,13 @@ useDotenv: true
 
 plugins:
   - serverless-tsoa
-  - serverless-esbuild
+  # - serverless-esbuild
   - serverless-offline-resources
   - serverless-offline
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: provided
   iam:
     role:
       statements:
@@ -49,25 +49,25 @@ provider:
 
 functions:
   webapp:
-    handler: src/webapp.handler
+    handler: handler.hello
     timeout: 29
     events:
       - httpApi:
           method: '*'
           path: /{proxy+}
-      - sns:
-          arn: !Ref Topic
-          topicName: ${self:service}-${self:provider.stage}
-      - s3:
-          bucket: Bucket
-          event: s3:ObjectCreated:*
-      - sqs:
-          arn:
-            Fn::GetAtt: [Queue, Arn]
-      - stream:
-          type: dynamodb
-          arn:
-            Fn::GetAtt: [Table, StreamArn]
+      # - sns:
+      #     arn: !Ref Topic
+      #     topicName: ${self:service}-${self:provider.stage}
+      # - s3:
+      #     bucket: Bucket
+      #     event: s3:ObjectCreated:*
+      # - sqs:
+      #     arn:
+      #       Fn::GetAtt: [Queue, Arn]
+      # - stream:
+      #     type: dynamodb
+      #     arn:
+      #       Fn::GetAtt: [Table, StreamArn]
 
 resources:
   Resources:
@@ -135,12 +135,12 @@ custom:
     reloadHandler: true
     useChildProcesses: false
 
-  esbuild:
-    bundle: true
-    minify: true
-    sourcemap: external
-    loader:
-      .html: text
+  # esbuild:
+  #   bundle: true
+  #   minify: true
+  #   sourcemap: external
+  #   loader:
+  #     .html: text
 
   tsoa:
     reloadHandler: true

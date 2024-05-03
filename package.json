@@ -55,6 +55,7 @@
     "@aws-sdk/client-secrets-manager": "3.x",
     "@aws-sdk/client-sns": "3.x",
     "@aws-sdk/client-sqs": "3.x",
+    "@aws-sdk/client-sso-oidc": "3.x",
     "@aws-sdk/lib-dynamodb": "3.x",
     "@aws-sdk/s3-request-presigner": "3.x",
     "@aws-sdk/util-dynamodb": "3.x",
