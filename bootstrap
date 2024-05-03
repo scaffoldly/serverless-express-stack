@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "!!! hello from bootstrap"
+env
+
 set -euo pipefail
 
 # Initialization - load function handler
