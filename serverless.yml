@@ -9,7 +9,7 @@ plugins:
 
 provider:
   name: aws
-  runtime: provided.al2
+  runtime: provided.al2023
   iam:
     role:
       statements:
