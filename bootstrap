@@ -13,7 +13,18 @@ while true
 do
   HEADERS="$(mktemp)"
   # Get an event
-  EVENT_DATA=$(curl -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
+  EVENT_DATA=$(curl -vvvv -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
+
+  echo "EVENT DATA FROM RUNTIME: ${EVENT_DATA}"
+  echo "HEADERS FROM RUNTIME:"
+  cat $HEADERS
+
+  EVENT_DATA=$(curl -vvvv -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
+
+  echo "EVENT DATA FROM RUNTIME (AGAIN): ${EVENT_DATA}"
+  echo "HEADERS FROM RUNTIME (AGAIN):"
+  cat $HEADERS
+
   REQUEST_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
 
   # Execute the handler function from the script
