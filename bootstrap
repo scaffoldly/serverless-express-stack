@@ -15,14 +15,8 @@ do
   # Get an event
   EVENT_DATA=$(curl -vvvv -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
 
-  echo "EVENT DATA FROM RUNTIME: ${EVENT_DATA}"
-  echo "HEADERS FROM RUNTIME:"
-  cat $HEADERS
-
-  EVENT_DATA=$(curl -vvvv -sS -LD "$HEADERS" -X GET "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/next")
-
-  echo "EVENT DATA FROM RUNTIME (AGAIN): ${EVENT_DATA}"
-  echo "HEADERS FROM RUNTIME (AGAIN):"
+  echo "EVENT DATA FROM NEXT: ${EVENT_DATA}"
+  echo "HEADERS FROM NEXT:"
   cat $HEADERS
 
   REQUEST_ID=$(grep -Fi Lambda-Runtime-Aws-Request-Id "$HEADERS" | tr -d '[:space:]' | cut -d: -f2)
@@ -31,5 +25,8 @@ do
   RESPONSE=$($(echo "$_HANDLER" | cut -d. -f2) "$EVENT_DATA")
 
   # Send the response
-  curl -s -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "$RESPONSE" -o /dev/null
+  RESPONSE_DATA=$(curl -vvvv -s -LD "$HEADERS" -X POST "http://${AWS_LAMBDA_RUNTIME_API}/2018-06-01/runtime/invocation/$REQUEST_ID/response"  -d "$RESPONSE")
+  echo "RESPONSE DATA FROM INVOCATION RESPONSE: ${RESPONSE_DATA}"
+  echo "HEADERS FROM INVOCATION RESPONSE:"
+  cat $HEADERS
 done
