@@ -3,7 +3,8 @@ import packageJson from '../../../package.json';
 export type ErrorContext = {
   traceId: string;
   version: string;
-  error?: Error;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  error?: any;
   message?: string;
 };
 
@@ -32,7 +33,12 @@ export class HttpError extends Error {
       ...context,
     };
 
-    if (!this.context.message && this.context.error) {
+    if (
+      !this.context.message &&
+      this.context.error &&
+      this.context.error.message &&
+      typeof this.context.error.message === 'string'
+    ) {
       this.context.message = this.context.error.message;
     }
 

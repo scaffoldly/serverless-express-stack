@@ -7,29 +7,30 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "husky && yarn dotenv && yarn tsoa",
+    "prepare": "husky && yarn tsoa",
+    "dev": "devcontainer up --workspace-folder .",
     "start": "serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
     "serverless": "serverless",
-    "dotenv": "dotenv-out -f typescript -e .env -e .scaffoldly/.env -c $NODE_ENV -o src",
     "lint": "eslint '*/**/*.{js,cjs,ts,tsx}' --quiet --fix",
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
   "devDependencies": {
+    "@devcontainers/cli": "0.x",
     "@types/aws-lambda": "8.x",
     "@types/cookies": "0.x",
     "@types/cors": "2.x",
     "@types/express": "4.x",
     "@types/mime-types": "2.x",
+    "@types/multer": "1.x",
     "@types/node": "18.x",
     "@types/react": "18.x",
     "@types/react-dom": "18.x",
     "@types/uuid": "9.x",
     "@typescript-eslint/eslint-plugin": "6.x",
     "@typescript-eslint/parser": "6.x",
-    "dotenv-out": "1.x",
-    "esbuild": "0.x",
+    "esbuild": "0.20.x",
     "eslint": "8.x",
     "eslint-config-airbnb": "19.x",
     "eslint-config-airbnb-typescript": "17.x",
@@ -45,7 +46,6 @@
     "prettier": "3.x",
     "pretty-quick": "4.x",
     "serverless": "3.x",
-    "serverless-dotenv-plugin": "6.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "13.x",
     "serverless-offline-resources": "1.x",
@@ -56,14 +56,16 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "3.x",
+    "@aws-sdk/client-s3": "3.x",
     "@aws-sdk/client-secrets-manager": "3.x",
     "@aws-sdk/client-sns": "3.x",
     "@aws-sdk/client-sqs": "3.x",
     "@aws-sdk/lib-dynamodb": "3.x",
+    "@aws-sdk/s3-request-presigner": "3.x",
     "@aws-sdk/util-dynamodb": "3.x",
+    "@codegenie/serverless-express": "4.x",
     "@tsoa/cli": "6.x",
     "@types/serve-static": "1.x",
-    "@vendia/serverless-express": "4.x",
     "@vitejs/plugin-react": "4.x",
     "aws-lambda": "1.x",
     "axios": "1.x",
@@ -71,11 +73,11 @@
     "cookies": "0.x",
     "cors": "2.x",
     "ddb-table": "2.x",
-    "dotenv": "16.x",
     "express": "4.x",
     "jose": "2.x",
     "mime-types": "2.x",
     "morgan-body": "2.x",
+    "multer": "1.4.5-lts.1",
     "path-parser": "6.x",
     "react": "18.x",
     "react-dom": "18.x",
@@ -94,5 +96,9 @@
       "eslint --fix",
       "git add"
     ]
-  }
+  },
+  "inject-secrets": [
+    "TEST_SECRET_1",
+    "TEST_SECRET_2"
+  ]
 }
