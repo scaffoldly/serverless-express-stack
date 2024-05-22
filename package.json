@@ -17,10 +17,10 @@
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
   "devDependencies": {
-    "@devcontainers/cli": "0.x",
     "@angular-devkit/build-angular": "17.x",
     "@angular/cli": "17.x",
     "@angular/compiler-cli": "17.x",
+    "@devcontainers/cli": "0.x",
     "@types/aws-lambda": "8.x",
     "@types/cookies": "0.x",
     "@types/cors": "2.x",
@@ -47,6 +47,7 @@
     "prettier": "3.x",
     "pretty-quick": "4.x",
     "serverless": "3.x",
+    "serverless-angular": "1.x",
     "serverless-esbuild": "1.x",
     "serverless-offline": "13.x",
     "serverless-offline-resources": "1.x",
