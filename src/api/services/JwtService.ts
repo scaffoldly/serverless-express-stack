@@ -4,14 +4,13 @@ import { v1 as uuid } from 'uuid';
 import { UserIdentitySchema } from '../db/user-identity';
 import SecretService from './aws/SecretService';
 
-export const ACCESS_COOKIE = '__Secure-access';
-export const REFRESH_COOKIE = '__Secure-refresh';
-
 export type UserIdentity = UserIdentitySchema & {
   token?: string;
 };
 
 export type EnrichedRequest = Request & {
+  accessCookieName: string;
+  refreshCookieName: string;
   baseUrl: string;
   authUrl: string;
   apiUrl: string;
@@ -92,7 +91,7 @@ export class JwtService {
 
     const { token, cookie: tokenCookie } = await this.createToken(
       payload,
-      ACCESS_COOKIE,
+      request.accessCookieName,
       JWKS_CURRENT,
       remember,
     );
@@ -101,7 +100,7 @@ export class JwtService {
     const { token: refreshToken, cookie: refreshCookie } =
       await this.createToken(
         { ...payload, exp: payload.iat + 31536000 },
-        REFRESH_COOKIE,
+        request.refreshCookieName,
         JWKS_NEXT,
         remember,
       );
@@ -143,7 +142,7 @@ export class JwtService {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
-      secure: true,
+      secure: cookieName.startsWith('__Secure-'),
     });
 
     return { token, cookie: cookie.toHeader() };

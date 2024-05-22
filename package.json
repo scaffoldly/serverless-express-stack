@@ -8,6 +8,7 @@
   },
   "scripts": {
     "prepare": "husky && yarn tsoa",
+    "dev": "devcontainer up --workspace-folder .",
     "start": "serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
@@ -16,6 +17,7 @@
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
   "devDependencies": {
+    "@devcontainers/cli": "0.x",
     "@types/aws-lambda": "8.x",
     "@types/cookies": "0.x",
     "@types/cors": "2.x",
@@ -26,7 +28,7 @@
     "@types/uuid": "9.x",
     "@typescript-eslint/eslint-plugin": "6.x",
     "@typescript-eslint/parser": "6.x",
-    "esbuild": "0.x",
+    "esbuild": "0.20.x",
     "eslint": "8.x",
     "eslint-config-airbnb": "19.x",
     "eslint-config-airbnb-typescript": "17.x",
