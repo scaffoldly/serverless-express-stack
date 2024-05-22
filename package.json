@@ -8,6 +8,7 @@
   },
   "scripts": {
     "prepare": "husky && yarn tsoa",
+    "dev": "devcontainer up --workspace-folder .",
     "start": "serverless offline",
     "build": "serverless package",
     "tsoa": "serverless tsoa",
@@ -16,6 +17,7 @@
     "format": "prettier --write '*/**/*.{js,cjs,ts,tsx}'"
   },
   "devDependencies": {
+    "@devcontainers/cli": "0.x",
     "@types/aws-lambda": "8.x",
     "@types/cookies": "0.x",
     "@types/cors": "2.x",

@@ -5,7 +5,7 @@ import { RegisterRoutes } from './api/express/routes';
 import errorHandler from './api/express/errors';
 import { corsHandler } from './api/express/cors';
 import {
-  requestEnricher,
+  enrichRequestHandler,
   refreshHandler,
   cookieHandler,
 } from './api/express/auth';
@@ -27,8 +27,8 @@ app.set('json spaces', 2);
 
 app.use(express.json({ limit: 5242880 }));
 app.use(corsHandler({ withCredentials: true }));
+app.use(enrichRequestHandler());
 app.use(cookieHandler());
-app.use(requestEnricher());
 app.use(refreshHandler());
 app.use(docsHandler());
 app.use(webHandler());
