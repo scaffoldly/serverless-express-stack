@@ -1,11 +1,9 @@
-import { NextFunction, Request, Response, Handler } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import Cookies from 'cookies';
 import {
-  ACCESS_COOKIE,
   EnrichedRequest,
   JwtPayload,
   JwtService,
-  REFRESH_COOKIE,
   UserIdentity,
 } from '../services/JwtService';
 import { HttpError } from '../internal/errors';
@@ -68,8 +66,8 @@ export async function expressAuthentication(
 
   const cookies = req.cookies as Cookies;
 
-  if (!token && cookies && cookies.get(ACCESS_COOKIE)) {
-    token = cookies.get(ACCESS_COOKIE);
+  if (!token && cookies && cookies.get(request.accessCookieName)) {
+    token = cookies.get(request.accessCookieName);
   }
 
   if (!token) {
@@ -126,21 +124,26 @@ export async function expressAuthentication(
   };
 }
 
-export function requestEnricher() {
+export function enrichRequestHandler() {
   return (
     req: Request,
     _res: Response,
     next: NextFunction,
   ): Response | void => {
-    const serviceName = process.env.SERVICE_NAME!;
     const scheme =
       req.headers['x-forwarded-proto'] || req.headers['x-scheme'] || 'http';
+    const secure = scheme === 'https';
     const host =
       req.headers['x-forwarded-host'] || req.headers.host || 'localhost:3000';
     const baseUrl = `${scheme}://${host}`;
     const apiUrl = `${baseUrl}/api`;
 
-    (req as unknown as EnrichedRequest).serviceName = serviceName;
+    (req as unknown as EnrichedRequest).accessCookieName = secure
+      ? `__Secure-access`
+      : `access`;
+    (req as unknown as EnrichedRequest).refreshCookieName = secure
+      ? `__Secure-refresh`
+      : `refresh`;
     (req as unknown as EnrichedRequest).baseUrl = baseUrl;
     (req as unknown as EnrichedRequest).apiUrl = apiUrl;
     (req as unknown as EnrichedRequest).authUrl = `${apiUrl}/auth`;
@@ -152,8 +155,20 @@ export function requestEnricher() {
   };
 }
 
-export function cookieHandler(): Handler {
-  return Cookies.express([ACCESS_COOKIE, REFRESH_COOKIE]);
+export function cookieHandler() {
+  return async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ): Promise<Response | void> => {
+    const request = req as unknown as EnrichedRequest;
+
+    Cookies.express([request.accessCookieName, request.refreshCookieName])(
+      req,
+      res,
+      next,
+    );
+  };
 }
 
 export function refreshHandler() {
@@ -167,18 +182,10 @@ export function refreshHandler() {
     const jwtService = new JwtService();
     const userIdentityTable = new UserIdentityTable();
 
-    let token: string | undefined;
-    let refreshToken: string | undefined;
+    const cookies = req.cookies as Cookies | undefined;
 
-    const cookies = req.cookies as Cookies;
-
-    if (cookies && cookies.get(ACCESS_COOKIE)) {
-      token = cookies.get(ACCESS_COOKIE);
-    }
-
-    if (cookies && cookies.get(REFRESH_COOKIE)) {
-      refreshToken = cookies.get(REFRESH_COOKIE);
-    }
+    const token = cookies && cookies.get(request.accessCookieName);
+    const refreshToken = cookies && cookies.get(request.refreshCookieName);
 
     if (!refreshToken) {
       next();
@@ -225,12 +232,16 @@ export function refreshHandler() {
 
     if (newSetCookies) {
       // Override the headers with the new tokens
-      req.headers.cookie = `${ACCESS_COOKIE}=${newToken}; ${REFRESH_COOKIE}=${newRefreshToken}; ${
+      req.headers.cookie = `${request.accessCookieName}=${newToken}; ${request.refreshCookieName}=${newRefreshToken}; ${
         req.headers.cookie || ''
       }`;
       res.setHeader('set-cookie', newSetCookies);
     }
 
-    Cookies.express([ACCESS_COOKIE, REFRESH_COOKIE])(req, res, next);
+    Cookies.express([request.accessCookieName, request.refreshCookieName])(
+      req,
+      res,
+      next,
+    );
   };
 }

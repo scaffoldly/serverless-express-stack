@@ -49,4 +49,3 @@ jobs:
           cli: serverless
         env:
           SECRETS: ${{ toJSON(secrets) }}
-          NODE_ENV: production

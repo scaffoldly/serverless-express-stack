@@ -1,11 +1,11 @@
 import express from 'express';
 import morganBody from 'morgan-body';
-import { configure } from '@vendia/serverless-express';
+import { configure } from '@codegenie/serverless-express';
 import { RegisterRoutes } from './api/express/routes';
 import errorHandler from './api/express/errors';
 import { corsHandler } from './api/express/cors';
 import {
-  requestEnricher,
+  enrichRequestHandler,
   refreshHandler,
   cookieHandler,
 } from './api/express/auth';
@@ -27,8 +27,8 @@ app.set('json spaces', 2);
 
 app.use(express.json({ limit: 5242880 }));
 app.use(corsHandler({ withCredentials: true }));
+app.use(enrichRequestHandler());
 app.use(cookieHandler());
-app.use(requestEnricher());
 app.use(refreshHandler());
 app.use(docsHandler());
 app.use(webHandler());
@@ -43,5 +43,6 @@ export const handler = configure({
     AWS_SQS: '/api/event/sqs',
     AWS_SNS: '/api/event/sns',
     AWS_EVENTBRIDGE: '/api/event/eventbridge',
+    AWS_S3: '/api/event/s3',
   },
 });
