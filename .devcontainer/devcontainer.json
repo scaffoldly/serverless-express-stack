@@ -2,7 +2,9 @@
   "name": "Stack",
   "image": "ghcr.io/scaffoldly/aws-localstack:3.1.0-node20",
   "features": {
-    "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {}
+    "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {
+      "publicPorts": "3000"
+    }
   },
   "remoteUser": "root",
   "hostRequirements": {
