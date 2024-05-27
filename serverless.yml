@@ -3,7 +3,7 @@ useDotenv: true
 
 plugins:
   - serverless-tsoa
-  - serverless-esbuild
+  # - serverless-esbuild
   - serverless-offline-resources
   - serverless-offline
 
@@ -47,9 +47,15 @@ provider:
     TOPIC_ARN: { Ref: Topic }
     HELLO: ${env:HELLO, 'Hello from Development!'}
 
+package:
+  patterns:
+    - '!node_modules/**'
+    - 'handler.sh'
+    - 'bootstrap'
+
 functions:
   webapp:
-    handler: src/webapp.handler
+    handler: handler.hello
     timeout: 29
     events:
       - httpApi:
