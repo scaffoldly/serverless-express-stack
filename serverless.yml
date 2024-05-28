@@ -2,8 +2,8 @@ service: ${file(package.json):name}
 useDotenv: true
 
 plugins:
-  - serverless-tsoa
-  - serverless-esbuild
+  # - serverless-tsoa
+  # - serverless-esbuild
   - serverless-offline-resources
   - serverless-offline
 
@@ -146,40 +146,40 @@ custom:
     reloadHandler: true
     useChildProcesses: false
 
-  esbuild:
-    bundle: true
-    minify: true
-    sourcemap: external
-    loader:
-      .html: text
+  # esbuild:
+  #   bundle: true
+  #   minify: true
+  #   sourcemap: external
+  #   loader:
+  #     .html: text
 
-  tsoa:
-    reloadHandler: true
-    spec:
-      basePath: '/'
-      name: ${self:service}
-      version: ${file(package.json):version}
-      entryFile: src/app.ts
-      noImplicitAdditionalProperties: throw-on-extras
-      bodyCoercion: true
-      controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
-      outputDirectory: src/lib
-      specFileBaseName: 'openapi'
-      specVersion: 3
-      securityDefinitions:
-        jwt:
-          type: http
-          scheme: bearer
-          bearerFormat: JWT
-    routes:
-      entryFile: src/app.ts
-      noImplicitAdditionalProperties: throw-on-extras
-      bodyCoercion: true
-      controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
-      routesDir: src/api/express
-      authenticationModule: src/api/express/auth.ts
-      noWriteIfUnchanged: true
-    client:
-      override:
-        title: Api
-      target: src/lib/api.ts
+  # tsoa:
+  #   reloadHandler: true
+  #   spec:
+  #     basePath: '/'
+  #     name: ${self:service}
+  #     version: ${file(package.json):version}
+  #     entryFile: src/app.ts
+  #     noImplicitAdditionalProperties: throw-on-extras
+  #     bodyCoercion: true
+  #     controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
+  #     outputDirectory: src/lib
+  #     specFileBaseName: 'openapi'
+  #     specVersion: 3
+  #     securityDefinitions:
+  #       jwt:
+  #         type: http
+  #         scheme: bearer
+  #         bearerFormat: JWT
+  #   routes:
+  #     entryFile: src/app.ts
+  #     noImplicitAdditionalProperties: throw-on-extras
+  #     bodyCoercion: true
+  #     controllerPathGlobs: ['src/api/index.ts', 'src/api/*-api.ts']
+  #     routesDir: src/api/express
+  #     authenticationModule: src/api/express/auth.ts
+  #     noWriteIfUnchanged: true
+  #   client:
+  #     override:
+  #       title: Api
+  #     target: src/lib/api.ts
