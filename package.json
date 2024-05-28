@@ -76,7 +76,7 @@
     "multer": "1.4.5-lts.1",
     "next": "^14.2.3",
     "path-parser": "6.x",
-    "serverless-next": "^1.0.0",
+    "serverless-next": "git+https://github.com/scaffoldly/serverless-next.git#8c82266dd2ebb00ed46d872c4a27465029983e91",
     "tsoa": "6.x",
     "uuid": "9.x"
   },
