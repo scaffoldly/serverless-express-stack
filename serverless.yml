@@ -59,7 +59,7 @@ functions:
       command:
         - ls
         - '-alR'
-      entrypoint:
+      entryPoint:
         - /bin/bash
     timeout: 29
     events:
