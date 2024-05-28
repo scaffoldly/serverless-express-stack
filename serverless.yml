@@ -9,6 +9,7 @@ plugins:
 
 provider:
   name: aws
+  runtime: nodejs20.x
   ecr:
     scanOnPush: true
     images:
