@@ -57,6 +57,7 @@ functions:
   webapp:
     image:
       name: devcontainer
+      command: foo
       # command: [next, start]
     timeout: 29
     events:
