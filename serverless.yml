@@ -54,8 +54,11 @@ provider:
 functions:
   webapp:
     image: base
-    command:
-      - 'ls -alR'
+      command:
+        - ls
+        - "-alR"
+      entrypoint:
+        - /bin/bash
     timeout: 29
     events:
       - httpApi:
