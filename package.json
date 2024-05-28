@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky && yarn tsoa",
     "dev": "devcontainer up --workspace-folder .",
     "start": "serverless offline",
     "build": "serverless package",
