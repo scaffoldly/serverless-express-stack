@@ -54,10 +54,11 @@ provider:
 
 functions:
   webapp:
+    handler: src/webapp.handler
     image:
       name: base
-      entryPoint:
-        - env
+      # entryPoint:
+      #   - env
     timeout: 29
     events:
       - httpApi:
