@@ -57,8 +57,7 @@ functions:
   webapp:
     image:
       name: devcontainer
-      command: foo
-      # command: [next, start]
+      command: next
     timeout: 29
     events:
       - httpApi:

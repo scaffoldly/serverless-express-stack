@@ -1,6 +1,8 @@
 #!/bin/sh
 # Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
+env
+
 if [ $# -ne 1 ]; then
   echo "entrypoint requires the handler name to be the first argument" 1>&2
   exit 142
