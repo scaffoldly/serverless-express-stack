@@ -53,10 +53,11 @@ provider:
 
 functions:
   webapp:
-    image: base
+    image:
+      name: base
       command:
         - ls
-        - "-alR"
+        - '-alR'
       entrypoint:
         - /bin/bash
     timeout: 29
