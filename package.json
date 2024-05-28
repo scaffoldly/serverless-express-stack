@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "prepare": "husky && yarn tsoa",
+    "prepare": "husky",
     "dev": "devcontainer up --workspace-folder .",
     "start": "serverless offline",
     "build": "serverless package",
@@ -75,6 +75,7 @@
     "morgan-body": "2.x",
     "multer": "1.4.5-lts.1",
     "path-parser": "6.x",
+    "serverless-next": "^1.0.0",
     "tsoa": "6.x",
     "uuid": "9.x"
   },
