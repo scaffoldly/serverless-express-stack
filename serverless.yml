@@ -9,7 +9,11 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  ecr:
+    scanOnPush: true
+    images:
+      base:
+        path: .devcontainer
   iam:
     role:
       statements:
@@ -49,7 +53,9 @@ provider:
 
 functions:
   webapp:
-    handler: src/webapp.handler
+    image: base
+    command:
+      - 'ls -alR'
     timeout: 29
     events:
       - httpApi:
