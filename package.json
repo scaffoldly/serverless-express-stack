@@ -74,6 +74,7 @@
     "mime-types": "2.x",
     "morgan-body": "2.x",
     "multer": "1.4.5-lts.1",
+    "next": "^14.2.3",
     "path-parser": "6.x",
     "serverless-next": "^1.0.0",
     "tsoa": "6.x",
