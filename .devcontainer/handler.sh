@@ -1,5 +1,6 @@
-function hello () {
-  RESPONSE="{\"body\": \"{\\\"message\\\": \\\"Hello Provided!\\\"}\", \"statusCode\": 200}"
+#!/bin/bash
 
-  echo $RESPONSE
-}
+env >&2
+
+RESPONSE="{\"body\": \"{\\\"message\\\": \\\"Hello Provided!\\\"}\", \"statusCode\": 200}"
+echo $RESPONSE

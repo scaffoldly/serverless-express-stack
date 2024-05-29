@@ -5,6 +5,7 @@ yarn.lock
 node_modules
 yarn-error.log
 .serverless/
+.next/
 .dynamodb/
 .DS_Store
 dynamodb-local-metadata.json
