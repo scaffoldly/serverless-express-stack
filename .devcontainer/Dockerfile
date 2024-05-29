@@ -5,4 +5,5 @@ ENTRYPOINT ["/bin/lambda-entrypoint.sh"]
 
 COPY ./handler.sh /var/task/handler
 
-RUN npm install -g @scaffoldly/awslambda-bootstrap@1.0.2
+ENV SLY_DEBUG=1
+RUN npm install -g @scaffoldly/awslambda-bootstrap@1.0.3
