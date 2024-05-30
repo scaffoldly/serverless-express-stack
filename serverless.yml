@@ -15,6 +15,7 @@ provider:
     scanOnPush: true
     images:
       devcontainer:
+        path: .
         file: .devcontainer/Dockerfile
   iam:
     role:
