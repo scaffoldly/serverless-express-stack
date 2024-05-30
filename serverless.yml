@@ -4,7 +4,7 @@ useDotenv: true
 plugins:
   # - serverless-tsoa
   # - serverless-esbuild
-  # - serverless-next
+  - serverless-next
   - serverless-offline-resources
   - serverless-offline
 
@@ -15,7 +15,7 @@ provider:
     scanOnPush: true
     images:
       devcontainer:
-        path: .devcontainer
+        file: .devcontainer/Dockerfile
   iam:
     role:
       statements:
@@ -57,7 +57,7 @@ functions:
   next:
     image:
       name: devcontainer
-      command: handler
+      command: next@http://localhost:3000
     timeout: 29
     events:
       - httpApi:
@@ -88,7 +88,7 @@ resources:
       Type: AWS::SecretsManager::Secret
       Properties:
         Name: ${self:service}-${self:provider.stage}
-        SecretString: ${file(inject-secrets.js):secrets}
+        SecretString: ${file(inject-secrets.cjs):secrets}
 
     Table:
       Type: AWS::DynamoDB::Table
