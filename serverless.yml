@@ -59,6 +59,8 @@ functions:
     image:
       name: devcontainer
       command: next@http://localhost:3000
+      entryPoint:
+        - /bin/lambda-entrypoint.sh
     timeout: 29
     events:
       - httpApi:
