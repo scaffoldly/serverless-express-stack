@@ -1341,6 +1341,11 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
+"@scaffoldly/awslambda-bootstrap@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/@scaffoldly/awslambda-bootstrap/-/awslambda-bootstrap-1.0.10.tgz#b4ddad8301a744403ad283baa7888d259aa56cb0"
+  integrity sha512-PtHl/vYE7JPPc7wSRm9qfExcFSTpRC6kk6Z3rvW+lqocC/Xzfkj587kJz4PP68dkZy65YDET8BjqVQBUWQGPjQ==
+
 "@serverless/dashboard-plugin@^7.2.0":
   version "7.2.3"
   resolved "https://registry.yarnpkg.com/@serverless/dashboard-plugin/-/dashboard-plugin-7.2.3.tgz#ea2a312de2c4e763f4365654f8dfb8720bda52bb"
@@ -5922,10 +5927,11 @@ semver@^7.3.5, semver@^7.3.7, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.2.tgz#1e3b34759f896e8f14d6134732ce798aeb0c6e13"
   integrity sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==
 
-"serverless-next@git+https://github.com/scaffoldly/serverless-next.git#91497d22c18716c83f0bfc604f6aaf96003cae1e":
+"serverless-next@git+https://github.com/scaffoldly/serverless-next.git#4c6f48e221e076499c1a9e5770d793a254b882c0":
   version "1.0.0-0"
-  resolved "git+https://github.com/scaffoldly/serverless-next.git#91497d22c18716c83f0bfc604f6aaf96003cae1e"
+  resolved "git+https://github.com/scaffoldly/serverless-next.git#4c6f48e221e076499c1a9e5770d793a254b882c0"
   dependencies:
+    "@scaffoldly/awslambda-bootstrap" "^1.0.10"
     "@types/node" "16"
     axios "^1.7.2"
     chokidar "3"

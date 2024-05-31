@@ -6,6 +6,9 @@
       "publicPorts": "3000"
     }
   },
+  "remoteEnv": {
+    "PATH": "${containerWorkspaceFolder}/node_modules/.bin:${containerEnv:PATH}"
+  },
   "remoteUser": "root",
   "hostRequirements": {
     "cpus": 4

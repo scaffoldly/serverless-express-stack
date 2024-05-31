@@ -58,9 +58,13 @@ functions:
   next:
     image:
       name: devcontainer
-      command: next@http://localhost:3000
+      # command: next@http://localhost:3000
+      command:
+        - bar
+        - baz
       entryPoint:
-        - /bin/lambda-entrypoint.sh
+        - lambda-env
+        - foo
     timeout: 29
     events:
       - httpApi:
