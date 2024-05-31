@@ -1,6 +1,9 @@
 {
   "name": "Stack",
-  "image": "ghcr.io/scaffoldly/aws-localstack:3.1.0-node20",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
   "features": {
     "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {
       "publicPorts": "3000"
