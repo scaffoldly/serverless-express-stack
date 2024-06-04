@@ -58,7 +58,7 @@ functions:
   next:
     image:
       name: devcontainer
-      command: next@http://localhost:3000
+      command: next start@http://localhost:3000
     timeout: 29
     events:
       - httpApi:
