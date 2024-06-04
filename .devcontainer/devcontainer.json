@@ -6,7 +6,7 @@
   },
   "features": {
     "ghcr.io/scaffoldly/devcontainer-features/aws-serverless-express:1": {
-      "publicPorts": "3000"
+      "publicPorts": "4000"
     }
   },
   "remoteEnv": {
@@ -16,10 +16,10 @@
   "hostRequirements": {
     "cpus": 4
   },
-  "appPort": [3000, 4566],
-  "forwardPorts": [3000, 4566],
+  "appPort": [4000, 4566],
+  "forwardPorts": [4000, 4566],
   "portsAttributes": {
-    "3000": {
+    "4000": {
       "label": "serverless-offline",
       "onAutoForward": "openPreview"
     },
@@ -35,6 +35,15 @@
   "updateContentCommand": "",
   "postCreateCommand": "",
   "postAttachCommand": {
-    "server": "yarn start"
+    // "server": "yarn start"
+  },
+  "customizations": {
+    "codespaces": {
+      "repositories": {
+        "scaffoldly/*": {
+          "permissions": "write-all"
+        }
+      }
+    }
   }
 }

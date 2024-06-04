@@ -22,12 +22,12 @@ provider:
       statements:
         - Effect: Allow
           Action:
-            - 'dynamodb:*'
-            - 'secretsmanager:*'
-            - 'sns:*'
-            - 'sqs:*'
-            - 's3:*'
-          Resource: '*'
+            - "dynamodb:*"
+            - "secretsmanager:*"
+            - "sns:*"
+            - "sqs:*"
+            - "s3:*"
+          Resource: "*"
   stage: ${opt:stage, 'development'}
   logRetentionInDays: 1
   tracing:
@@ -42,9 +42,9 @@ provider:
         CorsRules:
           - Id: GetObjects
             MaxAge: 3600
-            AllowedHeaders: ['*']
+            AllowedHeaders: ["*"]
             AllowedMethods: [GET]
-            AllowedOrigins: ['*']
+            AllowedOrigins: ["*"]
             ExposedHeaders: [Date, ETag, Content-Disposition]
   environment:
     BUCKET_NAME: ${self:provider.s3.Bucket.name}
@@ -62,7 +62,7 @@ functions:
     timeout: 29
     events:
       - httpApi:
-          method: '*'
+          method: "*"
           path: /{proxy+}
       - sns:
           arn: !Ref Topic
@@ -141,6 +141,7 @@ resources:
 custom:
   serverless-offline:
     host: 0.0.0.0
+    httpPort: 4000
     reloadHandler: true
     useChildProcesses: false
 

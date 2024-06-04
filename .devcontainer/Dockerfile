@@ -5,4 +5,6 @@ ENV SLY_DEBUG=1
 WORKDIR /var/task
 COPY . .
 
+RUN npm install -g prettier
+
 ENTRYPOINT ["/lambda-entrypoint.sh"]

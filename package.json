@@ -21,9 +21,10 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "prettier": "^3.2.5",
     "serverless": "3",
-    "serverless-next": "git+https://github.com/scaffoldly/serverless-next.git#4c6f48e221e076499c1a9e5770d793a254b882c0",
-    "serverless-offline": "^13.6.0",
+    "serverless-next": "^1.0.1",
+    "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#655c9618f65f71ac24330f5732a16e4e8a551eda",
     "serverless-offline-resources": "^1.0.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
