@@ -1341,10 +1341,10 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.3.tgz#391d528054f758f81e53210f1a1eebcf1a8b1d20"
   integrity sha512-qC/xYId4NMebE6w/V33Fh9gWxLgURiNYgVNObbJl2LZv0GUUItCcCqC5axQSwRaAgaxl2mELq1rMzlswaQ0Zxg==
 
-"@scaffoldly/awslambda-bootstrap@^1.0.11":
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/@scaffoldly/awslambda-bootstrap/-/awslambda-bootstrap-1.0.11.tgz#c064673a142f10540a7ebb3c445fa5aa4e8e58e5"
-  integrity sha512-n0ebvYlxsSe1/DY0YJczdNdhMJ3DoPuhDF0O1yWawk3WBXPqqpnnKzKreEJ+EgguUuJ07nHNbYJEOYHVhdC7MA==
+"@scaffoldly/awslambda-bootstrap@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@scaffoldly/awslambda-bootstrap/-/awslambda-bootstrap-1.0.12.tgz#67a0de93c3ef8f3d710c1ac0d1d9ec6b2de734da"
+  integrity sha512-ORTN8jdDcrI6m0Jy9H7V4fvSiNfYXPYlHKUo/nTbW87rrp5Eua7xyNovJWkqEzva2+aoA13lG7ieOBSw9VR+dw==
   dependencies:
     "@types/aws-lambda" "^8.10.138"
     "@types/node" "18"
@@ -6046,12 +6046,12 @@ semver@^7.3.5, semver@^7.3.7, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.2.tgz#1e3b34759f896e8f14d6134732ce798aeb0c6e13"
   integrity sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==
 
-serverless-next@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/serverless-next/-/serverless-next-1.0.1.tgz#50ab67bcaf9454ea33324676f8d1d51f7abb701b"
-  integrity sha512-x2537yXX9m/TkjqUM1S8auajGj0yW2xT5/mSm/2J0oHsbDbH2c1D9ogGybDd3s+gfBw/MSO34oaxsNdwET0QFA==
+serverless-next@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/serverless-next/-/serverless-next-1.0.2.tgz#eabf0505f3b26f4e4282dd5cb87946df033f23a9"
+  integrity sha512-3xFzDgjDQANBOe7SEKCqiPEYonwlXFPSTtt2LOu1G0AtiomVK+AOgefCJY0A4k0Qykdld7D9WDd16hUXkCzGpw==
   dependencies:
-    "@scaffoldly/awslambda-bootstrap" "^1.0.11"
+    "@scaffoldly/awslambda-bootstrap" "^1.0.12"
     "@types/node" "16"
     axios "^1.7.2"
     typescript "5"
