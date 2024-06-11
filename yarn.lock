@@ -6046,9 +6046,9 @@ semver@^7.3.5, semver@^7.3.7, semver@^7.3.8, semver@^7.5.3, semver@^7.5.4:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.6.2.tgz#1e3b34759f896e8f14d6134732ce798aeb0c6e13"
   integrity sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==
 
-"serverless-next@git+https://github.com/scaffoldly/serverless-next.git#c31ebc7d9e146ef56655d686b110ad77ec49b6a7":
-  version "1.0.4-8"
-  resolved "git+https://github.com/scaffoldly/serverless-next.git#c31ebc7d9e146ef56655d686b110ad77ec49b6a7"
+"serverless-next@git+https://github.com/scaffoldly/serverless-next.git#df2943f7033041fc6348dda9dd9490c8702c5571":
+  version "1.0.4-10"
+  resolved "git+https://github.com/scaffoldly/serverless-next.git#df2943f7033041fc6348dda9dd9490c8702c5571"
   dependencies:
     "@scaffoldly/awslambda-bootstrap" "^1.0.16"
     "@types/node" "16"
