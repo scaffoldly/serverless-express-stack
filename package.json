@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "serverless": "serverless offline",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "serverless deploy"
   },
   "dependencies": {
     "next": "14.2.3",
@@ -23,8 +24,8 @@
     "postcss": "^8",
     "prettier": "^3.2.5",
     "serverless": "3",
-    "serverless-next": "git+https://github.com/scaffoldly/serverless-next.git#b38acd21d0c024c333119a6b1cfdb2bcfced8718",
-    "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#655c9618f65f71ac24330f5732a16e4e8a551eda",
+    "serverless-next": "git+https://github.com/scaffoldly/serverless-next.git#5a0bc9d8e47da5c7f2ceec3912449df59bb58d68",
+    "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#aa923af8597a40456cf5d00a82ecb78a4f0a3ff2",
     "serverless-offline-resources": "^1.0.7",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
