@@ -14,14 +14,18 @@
   },
   "remoteUser": "root",
   "hostRequirements": {
-    "cpus": 4
+    "cpus": 4,
+    "storage": "64gb"
   },
-  "appPort": [4000, 4566],
-  "forwardPorts": [4000, 4566],
+  "appPort": [4000, 5000, 4566],
+  "forwardPorts": [4000, 5000, 4566],
   "portsAttributes": {
     "4000": {
       "label": "serverless-offline"
       // "onAutoForward": "openPreview"
+    },
+    "5000": {
+      "label": "moto"
     },
     "4566": {
       "label": "localstack"

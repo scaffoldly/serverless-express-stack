@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "scaffoldly dev",
+    "build": "scaffoldly build",
     "start": "next start",
     "serverless": "serverless offline",
     "lint": "next lint",
@@ -23,11 +23,31 @@
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
     "prettier": "^3.2.5",
-    "serverless": "3",
+    "scaffoldly": "git+https://github.com/scaffoldly/cli.git#f623d8eef5bda1497b56c5ced2036538af32f530",
     "serverless-next": "git+https://github.com/scaffoldly/serverless-next.git#5a0bc9d8e47da5c7f2ceec3912449df59bb58d68",
     "serverless-offline": "git+https://github.com/scaffoldly/serverless-offline.git#aa923af8597a40456cf5d00a82ecb78a4f0a3ff2",
-    "serverless-offline-resources": "^1.0.7",
+    "serverless-offline-resources": "git+https://github.com/scaffoldly/serverless-offline-resources.git#01a652e80268de3dc1cadba4745d5e4c60f35abc",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
+  },
+  "files": [
+    ".next",
+    "public"
+  ],
+  "scaffoldly": {
+    "runtime": "scaffoldly/awslambda-nextjs:14-node20",
+    "handler": "http://localhost:3000",
+    "route": "/{proxy+}",
+    "devFiles": [
+      "app",
+      "node_modules",
+      "package.json",
+      "tsconfig.json"
+    ],
+    "entrypoints": {
+      "dev": "next dev",
+      "build": "next build",
+      "serve": "next start"
+    }
   }
 }
