@@ -12,7 +12,6 @@
   "remoteEnv": {
     "PATH": "${containerWorkspaceFolder}/node_modules/.bin:${containerEnv:PATH}"
   },
-  "mounts": ["source=var-lib-docker,target=/var/lib/docker,type=volume"],
   "remoteUser": "root",
   "hostRequirements": {
     "cpus": 4,
